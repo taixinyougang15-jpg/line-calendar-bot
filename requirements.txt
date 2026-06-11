@@ -1,0 +1,7 @@
+flask==3.0.3
+line-bot-sdk==3.11.0
+google-api-python-client==2.136.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.1
+gunicorn==22.0.0
+python-dotenv==1.0.1
