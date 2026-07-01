@@ -244,11 +244,13 @@ def webhook():
 def handle_message(event: MessageEvent):
     text = event.message.text
     reply_token = event.reply_token
+    logger.info(f"Received message: {text!r}")
     try:
         schedule = extract_schedule(text)
     except Exception as e:
         logger.error(f"Parse error: {e}")
         return
+    logger.info(f"Extracted schedule: {schedule}")
     if not schedule:
         return
     try:
@@ -263,7 +265,10 @@ def handle_message(event: MessageEvent):
     except Exception as e:
         logger.error(f"Calendar error: {e}")
         reply = f"⚠️ 登録に失敗しました: {e}"
-    reply_text(reply_token, reply)
+    try:
+        reply_text(reply_token, reply)
+    except Exception as e:
+        logger.error(f"Reply error: {e}")
 
 
 @app.route("/", methods=["GET"])
